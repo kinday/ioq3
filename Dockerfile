@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM --platform=linux/386 alpine:latest
 
 RUN apk add --no-cache build-base make
 
@@ -26,9 +26,3 @@ COPY misc /tmp/ioq3/misc/
 COPY ui /tmp/ioq3/ui/
 
 RUN make --directory=/tmp/ioq3 copyfiles
-
-ENV IDSOFTWARE_FTP="https://ftp.gwdg.de/pub/misc/ftp.idsoftware.com"
-ENV PATCH_FILENAME="linuxq3apoint-1.32b-3.x86.run"
-
-RUN wget ${IDSOFTWARE_FTP}/idstuff/quake3/linux/${PATCH_FILENAME}
-RUN sh $PATCH_FILENAME --nox11 --target $COPYDIR
